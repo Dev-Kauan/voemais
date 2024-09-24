@@ -1,27 +1,23 @@
-'use client'
 import { Container, Nav, NavDropdown, Navbar } from "react-bootstrap";
-import { useEffect, useState } from "react";
-import apiAnime from "@/app/services/apiAnime";
 
 export default function Pagina(props) {
-    const [genero, setGenero] = useState([])
-
-    useEffect(() => {
-        apiAnime.get('genres/anime').then(resultado => {
-            setGenero(resultado.data.data)
-        })
-    }, [])
     return (
         <>
             <Navbar bg="dark" data-bs-theme="dark">
                 <Container>
-                    <Navbar.Brand href="/animes">Animes</Navbar.Brand>
+                    <Navbar.Brand href="/">Página Inicial</Navbar.Brand>
                     <Nav className="me-auto">
-                        <Nav.Link href="/animes">Animes</Nav.Link>
-                        <NavDropdown title="Gêneros" id="basic-nav-dropdown">
-                            {genero.map(item => (
-                                    <NavDropdown.Item key={item.mal_id}>{item.name} ({item.count})</NavDropdown.Item>
-                                ))}
+                        <Nav.Link href="/fundamentos">Fundamentos</Nav.Link>
+                        <Nav.Link href="/clientes">Clientes</Nav.Link>
+                        <Nav.Link href="/array">Array</Nav.Link>
+                        <NavDropdown title="Disney" id="basic-nav-dropdown">
+                            <NavDropdown.Item href="/disney">Paragráfos</NavDropdown.Item>
+                            <NavDropdown.Divider />
+                            <NavDropdown.Item href="/disney/cards">Cards</NavDropdown.Item>
+                            <NavDropdown.Divider />
+                            <NavDropdown.Item href="/disney/tabela">Tabela</NavDropdown.Item>
+                            <NavDropdown.Divider />
+                            <NavDropdown.Item href="/disney/carrosel">Carrosel</NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
                 </Container>
@@ -34,10 +30,6 @@ export default function Pagina(props) {
             <Container>
                 {props.children}
             </Container>
-
-            <footer>
-                <p className="bg-secondary text-white text-center p-3">Rodapé</p>
-            </footer>
         </>
     )
 }
