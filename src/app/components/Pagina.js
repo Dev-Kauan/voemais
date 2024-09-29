@@ -7,18 +7,11 @@ export default function Pagina(props) {
                 <Container>
                     <Navbar.Brand href="/">Página Inicial</Navbar.Brand>
                     <Nav className="me-auto">
-                        <Nav.Link href="/fundamentos">Fundamentos</Nav.Link>
-                        <Nav.Link href="/clientes">Clientes</Nav.Link>
-                        <Nav.Link href="/array">Array</Nav.Link>
-                        <NavDropdown title="Disney" id="basic-nav-dropdown">
-                            <NavDropdown.Item href="/disney">Paragráfos</NavDropdown.Item>
-                            <NavDropdown.Divider />
-                            <NavDropdown.Item href="/disney/cards">Cards</NavDropdown.Item>
-                            <NavDropdown.Divider />
-                            <NavDropdown.Item href="/disney/tabela">Tabela</NavDropdown.Item>
-                            <NavDropdown.Divider />
-                            <NavDropdown.Item href="/disney/carrosel">Carrosel</NavDropdown.Item>
-                        </NavDropdown>
+                        <Nav.Link href="/voo">Voos</Nav.Link>
+                        <Nav.Link href="/aeroporto">Aeroportos</Nav.Link>
+                        <Nav.Link href="/passagem">Passagens</Nav.Link>
+                        <Nav.Link href="/passageiro">Passageiro</Nav.Link>
+                        <Nav.Link href="/empresas">Empresas</Nav.Link>
                     </Nav>
                 </Container>
             </Navbar>
