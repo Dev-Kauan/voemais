@@ -27,9 +27,9 @@ export default function Page() {
                     </tr>
                 </thead>
                 <tbody>
-                    {passagens.map(item => (
-                        <tr>
-                            <td>1</td>
+                    {passagens.map((item, index )=> (
+                        <tr key={index}>
+                            <td>{index + 1}</td>
                             <td>{item.voo}</td>
                             <td>{item.passageiro}</td>
                             <td>{item.assento}</td>

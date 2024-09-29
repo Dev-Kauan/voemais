@@ -33,7 +33,7 @@ export default function Page() {
                 <tbody>
                     {voo.map((item, index) => (
                         <tr key={index}>
-                            <td>{index + 1}</td> {/* Exibindo o índice como ID */}
+                            <td>{index + 1}</td>
                             <td>{item.internacional}</td>
                             <td>{item.identificador}</td>
                             <td>{item.data_checkin}</td>

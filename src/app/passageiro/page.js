@@ -29,9 +29,9 @@ export default function Page() {
                     </tr>
                 </thead>
                 <tbody>
-                    {passageiros.map(item => (
-                        <tr>
-                            <td>1</td>
+                    {passageiros.map((item, index) => (
+                        <tr key={index}>
+                            <td>{index + 1}</td>
                             <td>{item.nome}</td>
                             <td>{item.tipo_documento}</td>
                             <td>{item.documento}</td>

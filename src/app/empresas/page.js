@@ -25,9 +25,9 @@ export default function Page() {
                     </tr>
                 </thead>
                 <tbody>
-                    {empresas.map(item => (
-                        <tr>
-                            <td>1</td>
+                    {empresas.map((item, index) => (
+                        <tr key={index}>
+                            <td>{index + 1}</td>
                             <td>{item.nome}</td>
                             <td>
                                 <a href={item.site} target="_blank">

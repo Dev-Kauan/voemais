@@ -28,9 +28,9 @@ export default function Page() {
                     </tr>
                 </thead>
                 <tbody>
-                    {aeroportos.map(item => (
-                        <tr>
-                            <td>1</td>
+                    {aeroportos.map((item, index )=> (
+                        <tr key={index}>
+                            <td>{index + 1}</td>
                             <td>{item.nome}</td>
                             <td>{item.sigla}</td>
                             <td>{item.uf}</td>
