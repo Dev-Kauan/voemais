@@ -4,14 +4,23 @@ import Pagina from "@/app/components/Pagina";
 import { Formik } from "formik";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { FaCheck } from "react-icons/fa";
 import { FaAngleLeft } from "react-icons/fa";
 import { v4 } from "uuid";
 
-export default function Page() {
-   
+export default function Page({params}) {
+
     const route = useRouter()
+
+    const [empresa, setEmpresa] = useState({ nome: '', logo: '', site: '' })
+
+    useEffect(() => {
+        const empresas = JSON.parse(localStorage.getItem('empresas')) || []
+        const dados = empresas.find(item => item.id == params.id)
+        setEmpresa(dados)
+    }, [])
 
     function salvar(dados) {
         const empresas = JSON.parse(localStorage.getItem('empresas')) || []
@@ -20,11 +29,11 @@ export default function Page() {
         localStorage.setItem('empresas', JSON.stringify(empresas))
         return route.push('/empresas')
     }
-    
+
     return (
         <Pagina titulo="Empresa">
             <Formik
-                initialValues={{ nome: '', logo: '', site: '' }}
+                initialValues={empresa}
                 onSubmit={values => salvar(values)}
             >
                 {({
