@@ -28,7 +28,7 @@ export default function Page() {
     return (
         <Pagina titulo="Empresas">
 
-            <Link href={"/empresas/create"} className="btn btn-primary mb-3 mt-3">
+            <Link href={"/empresas/form"} className="btn btn-primary mb-3 mt-3">
                 <FaPlusCircle />Novo
             </Link>
 
@@ -52,7 +52,7 @@ export default function Page() {
                                 </a>
                             </td>
                             <td>
-                                <Link href={`empresas/update/${item.id}`}>
+                                <Link href={`empresas/form/${item.id}`}>
                                     <MdEdit title="Editar" className="text-primary" />
                                 </Link>
                                 <FaTrashAlt
