@@ -7,22 +7,33 @@ import { useRouter } from "next/navigation";
 import { Button, Form } from "react-bootstrap";
 import { FaCheck } from "react-icons/fa";
 import { FaAngleLeft } from "react-icons/fa";
+import { v4 } from "uuid";
 
-export default function Page() {
-   
+export default function Page({ params }) {
+
     const route = useRouter()
 
+    const aeroportos = JSON.parse(localStorage.getItem('aeroportos')) || []
+    const dados = aeroportos.find(item => item.id == params.id)
+    const aeroporto = dados || { nome: '', sigla: '', uf: '', cidade: '', pais: '' }
+
     function salvar(dados) {
-        const aeroportos = JSON.parse(localStorage.getItem('aeroportos')) || []
-        aeroportos.push(dados);
+
+        if(aeroporto.id){
+            Object.assign(aeroporto, dados)
+        } else {
+            dados.id = v4()
+            aeroportos.push(dados)
+        }
+        
         localStorage.setItem('aeroportos', JSON.stringify(aeroportos))
-        return route.push('/aeroporto')
+        return route.push('/aeroporto');
     }
-    
+
     return (
         <Pagina titulo="Aeroporto">
             <Formik
-                initialValues={{ nome: '', sigla: '', uf: '', cidade: '', pais: '' }}
+                initialValues={aeroporto}
                 onSubmit={values => salvar(values)}
             >
                 {({

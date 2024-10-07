@@ -7,22 +7,33 @@ import { useRouter } from "next/navigation";
 import { Button, Form } from "react-bootstrap";
 import { FaCheck } from "react-icons/fa";
 import { FaAngleLeft } from "react-icons/fa";
+import { v4 } from "uuid";
 
-export default function Page() {
-   
+export default function Page({ params }) {
+
     const route = useRouter()
 
+    const passageiros = JSON.parse(localStorage.getItem('passageiros')) || []
+    const dados = passageiros.find(item => item.id == params.id)
+    const passageiro = dados || { nome: '', tipo_documento: '', documento: '', email: '', telefone: '', data_nascimento: '' }
+
     function salvar(dados) {
-        const passageiros = JSON.parse(localStorage.getItem('passageiros')) || []
-        passageiros.push(dados);
+
+        if(passageiro.id){
+            Object.assign(passageiro, dados)
+        } else {
+            dados.id = v4()
+            passageiros.push(dados)
+        }
+        
         localStorage.setItem('passageiros', JSON.stringify(passageiros))
-        return route.push('/passageiro')
+        return route.push('/passageiro');
     }
-    
+
     return (
         <Pagina titulo="Passageiro">
             <Formik
-                initialValues={{ nome: '', tipo_documento: '', documento: '', email: '', telefone: '', data_nascimento: '' }}
+                initialValues={passageiro}
                 onSubmit={values => salvar(values)}
             >
                 {({

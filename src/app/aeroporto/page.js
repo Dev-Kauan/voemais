@@ -2,17 +2,33 @@
 
 import Pagina from "@/app/components/Pagina";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
+import { MdEdit } from "react-icons/md";
+import { FaTrashAlt } from "react-icons/fa";
 import { FaPlusCircle } from "react-icons/fa";
 
 export default function Page() {
 
-    const aeroportos = JSON.parse(localStorage.getItem('aeroportos')) || []
+    const [aeroportos, setAeroportos] = useState([])
+
+    useEffect(() => {
+        setAeroportos(JSON.parse(localStorage.getItem('aeroportos')) || [])
+    }, [])
+
+    function excluir(id) {
+        if (confirm('Deseja realmente excluir?')) {
+            //Pega todos que é diferente do id informado pelo o parametro
+            const dados = aeroportos.filter(item => item.id != id)
+            localStorage.setItem('aeroportos', JSON.stringify(dados))
+            setAeroportos(dados)
+        }
+    }
 
     return (
         <Pagina titulo="Aeroporto">
 
-            <Link href={"/aeroporto/create"} className="btn btn-primary mb-3 mt-3">
+            <Link href={"/aeroporto/form"} className="btn btn-primary mb-3 mt-3">
                 <FaPlusCircle />Novo
             </Link>
 
@@ -25,6 +41,7 @@ export default function Page() {
                         <th>UF</th>
                         <th>Cidade</th>
                         <th>País</th>
+                        <th>Ações</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -36,6 +53,17 @@ export default function Page() {
                             <td>{item.uf}</td>
                             <td>{item.cidade}</td>
                             <td>{item.pais}</td>
+                            <td>
+                                <Link href={`aeroporto/form/${item.id}`}>
+                                    <MdEdit title="Editar" className="text-primary" />
+                                </Link>
+                                <FaTrashAlt
+                                    title="Excluir"
+                                    className="text-danger"
+                                    onClick={() => excluir(item.id)}
+                                />
+
+                            </td>
                         </tr>
                     ))}
                 </tbody>
