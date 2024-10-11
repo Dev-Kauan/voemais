@@ -36,7 +36,6 @@ export default function Page() {
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Internacional</th>
                         <th>Identificador</th>
                         <th>Data Checkin</th>
                         <th>Data Embarque</th>
@@ -51,7 +50,6 @@ export default function Page() {
                     {voos.map((item, index) => (
                         <tr key={index}>
                             <td>{index + 1}</td>
-                            <td>{item.internacional}</td>
                             <td>{item.identificador}</td>
                             <td>{item.data_checkin}</td>
                             <td>{item.data_embarque}</td>
