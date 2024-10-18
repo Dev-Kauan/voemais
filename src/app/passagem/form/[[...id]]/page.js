@@ -1,6 +1,7 @@
 'use client'
 
 import Pagina from "@/app/components/Pagina";
+import PassagemValidator from "@/app/validators/PassagemValidator";
 import { Formik } from "formik";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -34,12 +35,15 @@ export default function Page({ params }) {
         <Pagina titulo="Passagem">
             <Formik
                 initialValues={passagem}
+                validationSchema={PassagemValidator}
                 onSubmit={values => salvar(values)}
             >
                 {({
                     values,
                     handleChange,
                     handleSubmit,
+                    errors,
+                    touched,
                 }) => (
                     <Form className="mt-3">
                         <Form.Group className="mb-3" controlId="voo">
@@ -50,7 +54,9 @@ export default function Page({ params }) {
                                 name="voo"
                                 value={values.voo}
                                 onChange={handleChange('voo')}
+                                isInvalid={!!errors.voo && touched.voo}
                             />
+                            <ErrorMessage name="voo" component="div" className="text-danger" />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="passageiro">
                             <Form.Label>Passageiro</Form.Label>
@@ -59,7 +65,9 @@ export default function Page({ params }) {
                                 name="passageiro"
                                 value={values.passageiro}
                                 onChange={handleChange('passageiro')}
+                                isInvalid={!!errors.passageiro && touched.passageiro}
                             />
+                            <ErrorMessage name="passageiro" component="div" className="text-danger" />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="assento">
                             <Form.Label>Assento</Form.Label>
@@ -68,7 +76,9 @@ export default function Page({ params }) {
                                 name="assento"
                                 value={values.assento}
                                 onChange={handleChange('assento')}
+                                isInvalid={!!errors.assento && touched.assento}
                             />
+                            <ErrorMessage name="assento" component="div" className="text-danger" />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="preco">
                             <Form.Label>Preço</Form.Label>
@@ -77,7 +87,9 @@ export default function Page({ params }) {
                                 name="preco"
                                 value={values.preco}
                                 onChange={handleChange('preco')}
+                                isInvalid={!!errors.preco && touched.preco}
                             />
+                            <ErrorMessage name="preco" component="div" className="text-danger" />
                         </Form.Group>
                         <div className="text-center">
                             <Link href={"/passagem"} className="btn btn-primary"><FaAngleLeft />Voltar</Link>
