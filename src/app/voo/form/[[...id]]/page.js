@@ -2,7 +2,7 @@
 
 import Pagina from "@/app/components/Pagina";
 import VooValidator from "@/app/validators/VooValidator";
-import { Formik } from "formik";
+import { ErrorMessage, Formik } from "formik";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";

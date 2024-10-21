@@ -13,7 +13,6 @@ const PassageiroValidator = Yup.object().shape({
         .email('Email inválido')
         .required('Campo obrigatório'),
     telefone: Yup.string()
-        .matches(/^\d+$/, 'O telefone deve conter apenas números')
         .min(10, 'O telefone deve ter no mínimo 10 dígitos')
         .required('Campo obrigatório'),
     data_nascimento: Yup.date()
