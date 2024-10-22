@@ -5,6 +5,7 @@ import PassageiroValidator from "@/app/validators/PassageiroValidator";
 import { ErrorMessage, Formik } from "formik";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { Button, Form } from "react-bootstrap";
 import { FaCheck } from "react-icons/fa";
 import { FaAngleLeft } from "react-icons/fa";
@@ -18,8 +19,6 @@ export default function Page({ params }) {
     const passageiros = JSON.parse(localStorage.getItem('passageiros')) || []
     const dados = passageiros.find(item => item.id == params.id)
     const passageiro = dados || { nome: '', tipo_documento: '', documento: '', email: '', telefone: '', data_nascimento: '' }
-
-    
 
     function salvar(dados) {
 
@@ -52,6 +51,31 @@ export default function Page({ params }) {
 
                     const mascaraTelefone = mask(values.telefone, '(99) 99999-9999')
 
+                    useEffect(() => {
+                    
+                        switch (values.tipo_documento) {
+                            case 'CPF':
+                                values.documento = mask(values.documento, '999.999.999-99');
+                                break;
+                            case 'RG':
+                                values.documento = mask(values.documento, '9.999.999');
+                                break;
+                            case 'CNPJ':
+                                values.documento = mask(values.documento, '99.999.999/9999-99');
+                                break;
+                            case 'Passaporte':
+                                values.documento = mask(values.documento, 'AAA 9999');
+                                break;
+                        }
+            
+                    }, [values.documento]);
+
+
+                    useEffect(() => {
+                        values.documento = '';
+                    }, [values.tipo_documento])
+
+
                     return (
                         <Form className="mt-3">
                             <Form.Group className="mb-3" controlId="nome">
@@ -68,13 +92,19 @@ export default function Page({ params }) {
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="tipo_documento">
                                 <Form.Label>Tipo documento</Form.Label>
-                                <Form.Control type="text"
-                                    placeholder="Digite o tipo de documento"
+                                <Form.Select
+                                    aria-label="Default select example"
                                     name="tipo_documento"
                                     value={values.tipo_documento}
                                     onChange={handleChange('tipo_documento')}
                                     isInvalid={!!errors.tipo_documento && touched.tipo_documento}
-                                />
+                                >
+                                    <option value={''}>Selecione</option>
+                                    <option value={'RG'}>RG</option>
+                                    <option value={'CPF'}>CPF</option>
+                                    <option value={'CNPJ'}>CNPJ</option>
+                                    <option value={'Passaporte'}>Passaporte</option>
+                                </Form.Select>
                                 <ErrorMessage name="tipo_documento" component="div" className="text-danger" />
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="documento">
@@ -86,6 +116,7 @@ export default function Page({ params }) {
                                     onChange={handleChange('documento')}
                                     isInvalid={!!errors.documento && touched.documento}
                                 />
+
                                 <ErrorMessage name="documento" component="div" className="text-danger" />
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="email">
