@@ -3,9 +3,9 @@ import * as Yup from 'yup';
 const VooValidator = Yup.object().shape({
     identificador: Yup.string()
         .required('Campo obrigatório'),
-    data_checkin: Yup.date()
+    data_checkin: Yup.string()
         .required('Campo obrigatório'),
-    data_embarque: Yup.date()
+    data_embarque: Yup.string()
         .required('Campo obrigatório'),
     origem: Yup.string()
         .required('Campo obrigatório'),
